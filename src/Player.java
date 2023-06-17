@@ -4,7 +4,7 @@ import java.util.*;
 public class Player {
     Scanner scanner = new Scanner(System.in);
     private int freePoints = 20;
-    private String name;
+    protected String name;
     private int str = 5;
     private int agl = 5;
     private int vit = 5;
@@ -61,7 +61,7 @@ public class Player {
         System.out.println(String.format("Спасти наш мир от драконов вызвался %s! Да будет его броня крепка и бицепс кругл!", Player.getName()));
     }
 
-    private static Object getName() {
+    static Object getName() {
         return getName();
     }
 
@@ -87,5 +87,9 @@ public class Player {
 
     public Object getHealthPoints() {
         return hp;
+    }
+
+    public void setHealthPoints(int defenderHealth) {
+        this.hp = defenderHealth;
     }
 }

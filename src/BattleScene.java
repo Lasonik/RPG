@@ -42,7 +42,7 @@ public class BattleScene {
             //Если атакующий промахнулся (то есть урон не 0), выводим это сообщение
             System.out.println(String.format("%s промахнулся!", attacker.getName()));
         }
-        if (defenderHealth <= 0 && defender instanceof Hero) {
+        if (defenderHealth <= 0 && defender instanceof Player) {
             //Если здоровье меньше 0 и если защищающейся был героем, то игра заканчивается
             System.out.println("Извините, вы пали в бою...");
             //Вызываем коллбэк, что мы проиграли

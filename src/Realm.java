@@ -2,8 +2,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-import static java.lang.Compiler.command;
-
 public class Realm {
     private static BufferedReader br;
     private static Player player = null;
