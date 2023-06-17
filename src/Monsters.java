@@ -16,11 +16,11 @@ public abstract class Monsters {
         this.xp = xp;
     }
 
-    public Object getName() {
+    public String getName() {
         return name;
     }
 
-    public Object getGold() {
+    public int getGold() {
         return gold;
     }
 
@@ -28,7 +28,7 @@ public abstract class Monsters {
         this.gold = 50;
     }
 
-    public Object getXp() {
+    public int getXp() {
         return xp;
     }
 

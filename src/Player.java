@@ -20,72 +20,73 @@ public class Player {
     public Player() {
         System.out.println("Name your character: ");
         this.name = scanner.next();
-        while (freePoints != 0 && freePoints > 0){
+        while (freePoints != 0 && freePoints > 0) {
             System.out.println("Please spend your points!");
             System.out.println("You have : " + freePoints + " left");
-            System.out.println("Your stats: " + "\n" + "Strength: " + str + "\n" + "Agility: " +agl + "\n" + "Vitality: " + vit);
+            System.out.println("Your stats: " + "\n" + "Strength: " + str + "\n" + "Agility: " + agl + "\n" + "Vitality: " + vit);
             System.out.println("Choose what stat to increase" + "\n" +
                     "1)Strength 2)Agility 3)Vitality");
             int choice = scanner.nextInt();
-            if(choice == 1){
+            if (choice == 1) {
                 System.out.println("How much to spend?");
+                int temp = 0;
                 int amount = scanner.nextInt();
-                if(amount <= freePoints){
+                if (amount <= freePoints) {
                     str = str + amount;
                     freePoints = freePoints - amount;
-                }else{
+                } else {
                     System.out.println("Not enough points");
                 }
-            }else if(choice == 2){
+            } else if (choice == 2) {
                 System.out.println("How much to spend?");
                 int amount = scanner.nextInt();
-                if(amount <= freePoints){
+                if (amount <= freePoints) {
                     agl = agl + amount;
                     freePoints = freePoints - amount;
-                }else{
+                } else {
                     System.out.println("Not enough points");
                 }
-            }else if(choice == 3){
+            } else if (choice == 3) {
                 System.out.println("How much to spend?");
                 int amount = scanner.nextInt();
-                if(amount <= freePoints){
+                if (amount <= freePoints) {
                     vit = vit + amount;
                     freePoints = freePoints - amount;
-                }else{
+                } else {
                     System.out.println("Not enough points");
                 }
-            }else{
+            } else {
                 System.out.println("Wrong number try again");
             }
         }
         System.out.println(String.format("Спасти наш мир от драконов вызвался %s! Да будет его броня крепка и бицепс кругл!", Player.getName()));
     }
 
-    static Object getName() {
-        return getName();
+    static String getName() {
+        return name;
     }
 
-    protected int maxHp(int vit, int hp){
-        return (vit*5) - vit + hp;
+    protected int maxHp(int vit, int hp) {
+        return (vit * 5) - vit + hp;
     }
 
-    private int getRandomValue(){
-        return (int) (Math.random()*(str*2) + agl);
+    private int getRandomValue() {
+        return (int) (Math.random() * (str * 2) + agl);
     }
 
-    protected int attack(){
+    protected int attack() {
         return getRandomValue();
     }
 
-    public Object getXp() {
+    public int getXp() {
         return exp;
     }
 
-    public Object getGold() {
+    public int getGold() {
         return gold;
     }
 
-    public Object getHealthPoints() {
+    public int getHealthPoints() {
         return hp;
     }
 
