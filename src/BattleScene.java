@@ -1,6 +1,6 @@
 public class BattleScene {
     //Метод, который вызывается при начале боя, сюда мы передаем ссылки на нашего героя и монстра, который встал у него на пути
-    public void fight(Player hero, Monsters monster, Realm.FightCallback fightCallback) {
+    public void fight(Player name, Monsters monster, Realm.FightCallback fightCallback) {
         //Ходы будут идти в отдельном потоке
         Runnable runnable = () -> {
             //Сюда будем записывать, какой сейчас ход по счету
@@ -11,9 +11,9 @@ public class BattleScene {
                 System.out.println("----Ход: " + turn + "----");
                 //Воины бьют по очереди, поэтому здесь мы описываем логику смены сторон
                 if (turn++ % 2 != 0) {
-                    isFightEnded = makeHit(hero, monster, fightCallback);
+                    isFightEnded = makeHit(monster, name, fightCallback);
                 } else {
-                    isFightEnded = makeHit(hero, monster, fightCallback);
+                    isFightEnded = makeHit(name, monster, fightCallback);
                 }
                 try {
                     //Чтобы бой не проходил за секунду, сделаем имитацию работы, как если бы
@@ -29,20 +29,20 @@ public class BattleScene {
         thread.start();
     }
     //Метод для совершения удара
-    private Boolean makeHit(Player defender, Monsters attacker, Realm.FightCallback fightCallback) {
+    private Boolean makeHit(Character name, Character attacker, Realm.FightCallback fightCallback) {
         //Получаем силу удара
         int hit = attacker.attack();
         //Отнимаем количество урона из здоровья защищающегося
-        int defenderHealth = defender.getHealthPoints() - hit;
+        int defenderHealth = name.getHealthPoints() - hit;
         //Если атака прошла, выводим в консоль сообщение об этом
         if (hit != 0) {
             System.out.println(String.format("%s Нанес удар в %d единиц!", attacker.getName(), hit));
-            System.out.println(String.format("У %s осталось %d единиц здоровья...", defender.getName(), defenderHealth));
+            System.out.println(String.format("У %s осталось %d единиц здоровья...", name.getName(), defenderHealth));
         } else {
             //Если атакующий промахнулся (то есть урон не 0), выводим это сообщение
             System.out.println(String.format("%s промахнулся!", attacker.getName()));
         }
-        if (defenderHealth <= 0 && defender instanceof Player) {
+        if (defenderHealth <= 0 && name instanceof Player) {
             //Если здоровье меньше 0 и если защищающейся был героем, то игра заканчивается
             System.out.println("Извините, вы пали в бою...");
             //Вызываем коллбэк, что мы проиграли
@@ -50,15 +50,15 @@ public class BattleScene {
             return true;
         } else if(defenderHealth <= 0) {
             //Если здоровья больше нет и защищающийся – это монстр, то мы забираем от монстра его опыт и золото
-            System.out.println(String.format("Враг повержен! Вы получаете %d опыт и %d золота", defender.getXp(), defender.getGold()));
-            attacker.setXp(attacker.getXp() + defender.getXp());
-            attacker.setGold(attacker.getGold() + defender.getGold());
+            System.out.println(String.format("Враг повержен! Вы получаете %d опыт и %d золота", name.getXp(), name.getGold()));
+            attacker.setXp(attacker.getXp() + name.getXp());
+            attacker.setGold(attacker.getGold() + name.getGold());
             //вызываем коллбэк, что мы победили
             fightCallback.fightWin();
             return true;
         } else {
             //если защищающийся не повержен, то мы устанавливаем ему новый уровень здоровья
-            defender.setHealthPoints(defenderHealth);
+            name.setHealthPoints(defenderHealth);
             return false;
         }
     }

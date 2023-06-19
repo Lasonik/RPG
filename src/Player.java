@@ -1,10 +1,9 @@
 import java.util.Scanner;
-import java.util.*;
 
-public class Player {
+public class Player extends Character{
     Scanner scanner = new Scanner(System.in);
     private int freePoints = 20;
-    protected String name;
+    private String name;
     private int str = 5;
     private int agl = 5;
     private int vit = 5;
@@ -59,10 +58,11 @@ public class Player {
                 System.out.println("Wrong number try again");
             }
         }
-        System.out.println(String.format("Спасти наш мир от драконов вызвался %s! Да будет его броня крепка и бицепс кругл!", Player.getName()));
+        System.out.println(String.format("Спасти наш мир от драконов вызвался %s! Да будет его броня крепка и бицепс кругл!", getName()));
+
     }
 
-    static String getName() {
+    public String getName() {
         return name;
     }
 

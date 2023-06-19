@@ -4,14 +4,15 @@ import java.io.InputStreamReader;
 
 public class Realm {
     private static BufferedReader br;
-    private static Player player = null;
-    private static BattleScene battleScene = null;
-    public static void main(String[] args) {
+    private static Player player;
+    private static BattleScene battleScene;
+    public static void main(String[] args) throws IOException {
         //Инициализируем BufferedReader
         br = new BufferedReader(new InputStreamReader(System.in));
         //Инициализируем класс для боя
-        battleScene = new BattleScene();
-        Player player = new Player();
+        player = new Player();
+       battleScene = new BattleScene();
+       printNavigation();
 
         //System.out.println(player.name + "\n" + "Level: "+ player.level + "\n" + "Strength: " +player.str+ "\n"+ "Agility: " +player.agl+ "\n"+ "Vitality: " +player.vit+ "\n" + "HP: " +player.maxHp(player.vit, player.hp)); //Testing stats.
 
@@ -46,11 +47,12 @@ public class Realm {
         void fightWin();
         void fightLost();
     }
-    private static void printNavigation() {
+    private static void printNavigation() throws IOException {
         System.out.println("Куда вы хотите пойти?");
         System.out.println("1. К Торговцу");
         System.out.println("2. В темный лес");
         System.out.println("3. Выход");
+        command(br.readLine());
     }
     private static void commitFight() {
         battleScene.fight(player, createMonster(), new FightCallback() {
@@ -67,7 +69,7 @@ public class Realm {
 
             @Override
             public void fightLost() {
-
+                System.exit(1);
             }
         });
     }
@@ -77,6 +79,5 @@ public class Realm {
         //С вероятностью 50% создается или скелет, или гоблин
         if (random % 2 == 0) return new Goblin("Гоблин",50,5,10,50);
         else return new Skeleton("Скелет",75,10,5,75);
-
     }
 }

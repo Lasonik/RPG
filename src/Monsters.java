@@ -1,4 +1,4 @@
-public abstract class Monsters {
+public abstract class Monsters extends Character{
     private String name;
     private int hp;
     private int str;
@@ -33,7 +33,7 @@ public abstract class Monsters {
     }
 
     public void setXp(int i) {
-        this.xp = 50;
+        this.xp = xp;
     }
     private int getRandomValue(){
         return (int) (Math.random()*(str*2) + agl);
